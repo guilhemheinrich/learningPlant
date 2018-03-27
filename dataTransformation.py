@@ -5,7 +5,6 @@ import datetime
 import hashlib
 import time
 
-
 class dataHandler:
     def __init__(self):
         self.data = {}
@@ -88,7 +87,7 @@ class dataHandler:
                 datum['+2'] = None
             key = plant['data'][index_datum]['variables'][variable_name]['key']
             out_allDatum[key] = datum
-        print(out_allDatum)
+        # print out_allDatum
         return out_allDatum
     def buildDatum(self):
         transformed_data = []
@@ -99,14 +98,20 @@ class dataHandler:
             plant = self.data[plant_key]
             transformed_data.append(self.processPlantDatum(plant, 'leafArea'))
         return transformed_data
+
+def transformDatumIntoArray(transformed_data):
+    tmp_array = []
+    for plant in transformed_data:
+        array_line = []
+        for datum_key in plant.keys():
+            datum = plant[datum_key]
+            array_line.append(datum.values())
+        tmp_array.append(array_line)
+    return tmp_array
+        
                     
 
-filepath = "data\\allPlants.csv"
 
-datahandle = dataHandler() 
-datahandle.addRawData(filepath)
-datahandle.buildDatum() 
-print(datahandle.buildDatum()[0])
 
 
 
